@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- SpiderPhotos.com | Built by Parker Web Studio | v2.3.1 | Last updated: March 2022 -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Peter Benjamin Parker">
+  <meta name="copyright" content="© 2022 Peter Parker - All photographs are original works. Unauthorised reproduction is an infringement of the Copyright Act 1968 (Cth).">
+  <meta name="description" content="SpiderPhotos.com - Professional aerial and rooftop photography by Peter Parker, Sydney, Australia.">
+  <meta name="keywords" content="aerial photography, rooftop photography, Sydney, New York, cityscape, Peter Parker, SpiderPhotos">
+  <meta name="robots" content="index, follow">
+  <title>SpiderPhotos.com | Peter Parker Photography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================
+       RESET & BASE
+    ========================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep:    #1a1a2e;
+      --bg-mid:     #16213e;
+      --bg-card:    #0f3460;
+      --red:        #C0392B;
+      --red-light:  #e74c3c;
+      --white:      #ffffff;
+      --grey:       #aaaaaa;
+      --font-body:  'Montserrat', sans-serif;
+      --font-display: 'Playfair Display', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--red-light); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--white); }
+
+    /* =========================================
+       SPIDER-WEB BACKGROUND OVERLAY
+    ========================================= */
+    .web-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.04;
+    }
+
+    /* =========================================
+       NAVIGATION
+    ========================================= */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(26, 26, 46, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(192, 57, 43, 0.25);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--red); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--grey);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .nav-links a:hover { color: var(--red-light); }
+
+    /* =========================================
+       HERO SECTION
+    ========================================= */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      background:
+        linear-gradient(135deg, rgba(26,26,46,0.97) 0%, rgba(15,52,96,0.85) 60%, rgba(192,57,43,0.12) 100%),
+        radial-gradient(ellipse at 70% 30%, rgba(192,57,43,0.15) 0%, transparent 60%);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+
+    .hero-tagline {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      color: var(--red-light);
+      margin-bottom: 2rem;
+    }
+
+    .hero-sub {
+      max-width: 560px;
+      font-size: 0.95rem;
+      color: var(--grey);
+      font-weight: 300;
+      margin-bottom: 3rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2.4rem;
+      border: 2px solid var(--red);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: background 0.25s, color 0.25s;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--red); color: var(--white); }
+    .btn-fill { background: var(--red); }
+    .btn-fill:hover { background: var(--red-light); border-color: var(--red-light); }
+
+    /* Animated web in hero */
+    .hero-web {
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 420px; height: 420px;
+      opacity: 0.12;
+      animation: slowSpin 60s linear infinite;
+    }
+    @keyframes slowSpin { to { transform: rotate(360deg); } }
+
+    .hero-web-tl {
+      position: absolute;
+      top: 60px; left: -30px;
+      width: 260px; height: 260px;
+      opacity: 0.07;
+      animation: slowSpin 80s linear infinite reverse;
+    }
+
+    /* =========================================
+       SECTION COMMON
+    ========================================= */
+    section { position: relative; z-index: 1; padding: 5rem 2rem; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .section-header .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 0.7rem;
+    }
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--white);
+    }
+    .divider {
+      width: 48px; height: 3px;
+      background: var(--red);
+      margin: 1.2rem auto 0;
+    }
+
+    /* =========================================
+       ABOUT SECTION
+    ========================================= */
+    #about { background: var(--bg-mid); }
+
+    .about-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-portrait {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border: 1px solid rgba(192,57,43,0.3);
+      overflow: hidden;
+    }
+
+    .about-text h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+    .about-text p {
+      color: var(--grey);
+      font-size: 0.92rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    .about-text .stat {
+      display: flex; gap: 2rem; margin-top: 1.5rem;
+    }
+    .about-text .stat-item strong {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--red);
+    }
+    .about-text .stat-item span {
+      font-size: 0.75rem;
+      color: var(--grey);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* =========================================
+       GALLERY SECTION
+    ========================================= */
+    #gallery { background: var(--bg-deep); }
+
+    /* Gallery auto-generated from /assets/gallery/originals/ - DO NOT COPY */
+
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .gallery-item {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .img-wrapper {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .img-wrapper:hover { transform: scale(1.02); border-color: rgba(192,57,43,0.5); }
+
+    /* Canvas-drawn Spider-Man scenes */
+    .img-canvas {
+      width: 100%; height: 100%;
+      display: block;
+    }
+
+    /* Watermark overlay */
+    .watermark {
+      position: absolute;
+      bottom: 8px; right: 10px;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.55);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(192,57,43,0.0);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s;
+    }
+    .img-wrapper:hover .hover-overlay { background: rgba(192,57,43,0.12); }
+
+    .img-icon {
+      color: rgba(255,255,255,0);
+      font-size: 1.8rem;
+      transition: color 0.3s;
+    }
+    .img-wrapper:hover .img-icon { color: rgba(255,255,255,0.7); }
+
+    .img-caption {
+      padding: 0.55rem 0.2rem 0;
+      font-size: 0.72rem;
+      color: var(--grey);
+      letter-spacing: 0.04em;
+      font-family: 'Courier New', monospace;
+    }
+    .img-caption .img-date {
+      font-size: 0.65rem;
+      color: rgba(170,170,170,0.5);
+      margin-top: 0.15rem;
+    }
+
+    /* =========================================
+       LICENSING SECTION
+    ========================================= */
+    #licensing { background: var(--bg-mid); }
+
+    .license-box {
+      max-width: 760px;
+      margin: 0 auto;
+      background: rgba(15, 52, 96, 0.4);
+      border: 1px solid rgba(192,57,43,0.3);
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .license-box p {
+      color: var(--grey);
+      font-size: 0.95rem;
+      font-weight: 300;
+      margin-bottom: 1.4rem;
+      line-height: 1.8;
+    }
+
+    .license-types {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .license-type {
+      flex: 1; min-width: 160px;
+      border: 1px solid rgba(192,57,43,0.25);
+      padding: 1.4rem 1rem;
+    }
+    .license-type strong {
+      display: block;
+      color: var(--red-light);
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .license-type span { font-size: 0.8rem; color: var(--grey); }
+
+    .legal-notice {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: rgba(192,57,43,0.08);
+      border-left: 3px solid var(--red);
+      text-align: left;
+      font-size: 0.78rem;
+      color: var(--grey);
+      line-height: 1.7;
+    }
+
+    /* =========================================
+       CONTACT SECTION
+    ========================================= */
+    #contact { background: var(--bg-deep); }
+
+    .contact-grid {
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .contact-detail .icon { color: var(--red); font-size: 0.9rem; min-width: 1.1rem; }
+    .contact-detail p { font-size: 0.88rem; color: var(--grey); }
+    .contact-detail a { color: var(--grey); }
+    .contact-detail a:hover { color: var(--red-light); }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      padding: 0.8rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--red); }
+    .contact-form textarea { min-height: 100px; resize: vertical; }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+    footer {
+      background: #0d0d1f;
+      border-top: 1px solid rgba(192,57,43,0.2);
+      padding: 2.2rem 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-logo span { color: var(--red); }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(170,170,170,0.6);
+      line-height: 1.9;
+      letter-spacing: 0.03em;
+    }
+
+    /* =========================================
+       LIGHTBOX
+    ========================================= */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    #lightbox.active { display: flex; }
+    #lightbox .lb-img {
+      max-width: 80vw; max-height: 70vh;
+      border: 1px solid rgba(192,57,43,0.4);
+    }
+    #lightbox .lb-caption {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--grey);
+      font-family: monospace;
+    }
+    #lightbox .lb-close {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      font-size: 2rem;
+      color: var(--grey);
+      cursor: pointer;
+    }
+    #lightbox .lb-close:hover { color: var(--red-light); }
+
+    /* =========================================
+       SCROLL REVEAL
+    ========================================= */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s, transform 0.6s; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-web { width: 240px; height: 240px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       SPIDER-WEB BACKGROUND (fixed, decorative)
+  ============================================================ -->
+  <svg class="web-bg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="#C0392B" fill="none">
+      <!-- Radial spokes -->
+      <line x1="400" y1="400" x2="400" y2="0"/>
+      <line x1="400" y1="400" x2="683" y2="100"/>
+      <line x1="400" y1="400" x2="800" y2="300"/>
+      <line x1="400" y1="400" x2="800" y2="500"/>
+      <line x1="400" y1="400" x2="683" y2="700"/>
+      <line x1="400" y1="400" x2="400" y2="800"/>
+      <line x1="400" y1="400" x2="117" y2="700"/>
+      <line x1="400" y1="400" x2="0"   y2="500"/>
+      <line x1="400" y1="400" x2="0"   y2="300"/>
+      <line x1="400" y1="400" x2="117" y2="100"/>
+      <!-- Concentric rings -->
+      <circle cx="400" cy="400" r="80"/>
+      <circle cx="400" cy="400" r="160"/>
+      <circle cx="400" cy="400" r="240"/>
+      <circle cx="400" cy="400" r="320"/>
+      <circle cx="400" cy="400" r="400"/>
+    </g>
+  </svg>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-logo"><span>Spider</span>Photos</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#licensing">Licensing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       HERO SECTION
+  ============================================================ -->
+  <section id="hero" aria-label="Hero">
+
+    <!-- Decorative web elements -->
+    <svg class="hero-web" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g stroke="#C0392B" fill="none" stroke-width="1">
+        <line x1="200" y1="200" x2="200" y2="0"/>
+        <line x1="200" y1="200" x2="346" y2="50"/>
+        <line x1="200" y1="200" x2="400" y2="150"/>
+        <line x1="200" y1="200" x2="400" y2="250"/>
+        <line x1="200" y1="200" x2="346" y2="350"/>
+        <line x1="200" y1="200" x2="200" y2="400"/>
+        <line x1="200" y1="200" x2="54"  y2="350"/>
+        <line x1="200" y1="200" x2="0"   y2="250"/>
+        <line x1="200" y1="200" x2="0"   y2="150"/>
+        <line x1="200" y1="200" x2="54"  y2="50"/>
+        <circle cx="200" cy="200" r="50"/>
+        <circle cx="200" cy="200" r="100"/>
+        <circle cx="200" cy="200" r="150"/>
+        <circle cx="200" cy="200" r="200"/>
+      </g>
+    </svg>
+
+    <svg class="hero-web-tl" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g stroke="#C0392B" fill="none" stroke-width="1">
+        <line x1="200" y1="200" x2="200" y2="0"/>
+        <line x1="200" y1="200" x2="346" y2="50"/>
+        <line x1="200" y1="200" x2="400" y2="200"/>
+        <line x1="200" y1="200" x2="346" y2="350"/>
+        <line x1="200" y1="200" x2="200" y2="400"/>
+        <line x1="200" y1="200" x2="54"  y2="350"/>
+        <line x1="200" y1="200" x2="0"   y2="200"/>
+        <line x1="200" y1="200" x2="54"  y2="50"/>
+        <circle cx="200" cy="200" r="60"/>
+        <circle cx="200" cy="200" r="120"/>
+        <circle cx="200" cy="200" r="180"/>
+      </g>
+    </svg>
+
+    <p class="hero-eyebrow">Sydney, Australia · Est. 2022</p>
+    <h1 class="hero-title">Peter Parker<br>Photography</h1>
+    <p class="hero-tagline">"Capturing the City from Above"</p>
+    <p class="hero-sub">
+      Freelance aerial and rooftop photographer specialising in urban cityscapes across
+      Sydney and New York. Available for commercial licensing and editorial commissions.
+    </p>
+    <a href="#gallery" class="btn btn-fill">View Portfolio</a>
+  </section>
+
+  <!-- ============================================================
+       ABOUT SECTION
+  ============================================================ -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="section-header reveal">
+      <span class="eyebrow">About the Photographer</span>
+      <h2 id="about-heading">Peter Benjamin Parker</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-portrait reveal" role="img" aria-label="Portrait of Peter Parker">
+        <canvas id="portrait-canvas" width="300" height="400" style="width:100%;height:100%;display:block;" aria-label="Peter Parker - photographer portrait"></canvas>
+      </div>
+
+      <div class="about-text reveal">
+        <h3>Sydney's Rooftop Photographer</h3>
+        <p>
+          Based in Sydney, NSW, Peter Parker is a professional freelance photographer
+          with a passion for urban landscapes seen from impossible vantage points.
+          Armed with permits, patience, and a head for heights, Peter has been documenting
+          cityscapes from rooftops and aerial positions since early 2022.
+        </p>
+        <p>
+          His work spans two cities - Sydney and New York - capturing the geometry,
+          light, and human rhythm of urban life from above. His images have appeared
+          in architectural journals, travel publications, and corporate campaigns.
+        </p>
+        <p>
+          All photographs published on SpiderPhotos.com are original works created
+          exclusively by Peter Parker and are protected under the
+          <em>Copyright Act 1968</em> (Cth).
+        </p>
+        <div class="stat">
+          <div class="stat-item">
+            <strong>2022</strong>
+            <span>Est.</span>
+          </div>
+          <div class="stat-item">
+            <strong>60+</strong>
+            <span>Published Works</span>
+          </div>
+          <div class="stat-item">
+            <strong>2</strong>
+            <span>Cities</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GALLERY SECTION
+  ============================================================ -->
+  <section id="gallery" aria-labelledby="gallery-heading">
+    <div class="section-header reveal">
+      <span class="eyebrow">Portfolio</span>
+      <h2 id="gallery-heading">Original Works</h2>
+      <div class="divider"></div>
+    </div>
+
+    <!-- Gallery auto-generated from /assets/gallery/originals/ - DO NOT COPY -->
+
+    <div class="gallery-grid" id="galleryGrid">
+
+      <!-- Item 1 -->
+      <div class="gallery-item reveal" data-filename="spiderman-rooftop-001.jpg" data-date="March 2022" data-scene="1">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-rooftop-001.jpg">
+          <canvas id="sp-canvas-1" class="img-canvas" width="400" height="300" aria-label="spiderman-rooftop-001.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-rooftop-001.jpg
+          <div class="img-date">Uploaded: March 2022</div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="gallery-item reveal" data-filename="spiderman-rooftop-002.jpg" data-date="March 2022" data-scene="2">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-rooftop-002.jpg">
+          <canvas id="sp-canvas-2" class="img-canvas" width="400" height="300" aria-label="spiderman-rooftop-002.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-rooftop-002.jpg
+          <div class="img-date">Uploaded: March 2022</div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="gallery-item reveal" data-filename="spiderman-rooftop-003.jpg" data-date="April 2022" data-scene="3">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-rooftop-003.jpg">
+          <canvas id="sp-canvas-3" class="img-canvas" width="400" height="300" aria-label="spiderman-rooftop-003.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-rooftop-003.jpg
+          <div class="img-date">Uploaded: April 2022</div>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="gallery-item reveal" data-filename="spiderman-manhattan-001.jpg" data-date="April 2022" data-scene="4">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-manhattan-001.jpg">
+          <canvas id="sp-canvas-4" class="img-canvas" width="400" height="300" aria-label="spiderman-manhattan-001.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-manhattan-001.jpg
+          <div class="img-date">Uploaded: April 2022</div>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="gallery-item reveal" data-filename="spiderman-manhattan-002.jpg" data-date="May 2022" data-scene="5">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-manhattan-002.jpg">
+          <canvas id="sp-canvas-5" class="img-canvas" width="400" height="300" aria-label="spiderman-manhattan-002.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-manhattan-002.jpg
+          <div class="img-date">Uploaded: May 2022</div>
+        </div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="gallery-item reveal" data-filename="spiderman-manhattan-003.jpg" data-date="May 2022" data-scene="6">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-manhattan-003.jpg">
+          <canvas id="sp-canvas-6" class="img-canvas" width="400" height="300" aria-label="spiderman-manhattan-003.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-manhattan-003.jpg
+          <div class="img-date">Uploaded: May 2022</div>
+        </div>
+      </div>
+
+      <!-- Item 7 -->
+      <div class="gallery-item reveal" data-filename="spiderman-sydney-001.jpg" data-date="June 2022" data-scene="7">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-sydney-001.jpg">
+          <canvas id="sp-canvas-7" class="img-canvas" width="400" height="300" aria-label="spiderman-sydney-001.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-sydney-001.jpg
+          <div class="img-date">Uploaded: June 2022</div>
+        </div>
+      </div>
+
+      <!-- Item 8 -->
+      <div class="gallery-item reveal" data-filename="spiderman-sydney-002.jpg" data-date="June 2022" data-scene="8">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-sydney-002.jpg">
+          <canvas id="sp-canvas-8" class="img-canvas" width="400" height="300" aria-label="spiderman-sydney-002.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-sydney-002.jpg
+          <div class="img-date">Uploaded: June 2022</div>
+        </div>
+      </div>
+
+      <!-- Item 9 -->
+      <div class="gallery-item reveal" data-filename="spiderman-sydney-003.jpg" data-date="July 2022" data-scene="9">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-sydney-003.jpg">
+          <canvas id="sp-canvas-9" class="img-canvas" width="400" height="300" aria-label="spiderman-sydney-003.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-sydney-003.jpg
+          <div class="img-date">Uploaded: July 2022</div>
+        </div>
+      </div>
+
+      <!-- Item 10 -->
+      <div class="gallery-item reveal" data-filename="spiderman-aerial-001.jpg" data-date="August 2022" data-scene="10">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-aerial-001.jpg">
+          <canvas id="sp-canvas-10" class="img-canvas" width="400" height="300" aria-label="spiderman-aerial-001.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-aerial-001.jpg
+          <div class="img-date">Uploaded: August 2022</div>
+        </div>
+      </div>
+
+      <!-- Item 11 -->
+      <div class="gallery-item reveal" data-filename="spiderman-aerial-002.jpg" data-date="August 2022" data-scene="11">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-aerial-002.jpg">
+          <canvas id="sp-canvas-11" class="img-canvas" width="400" height="300" aria-label="spiderman-aerial-002.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-aerial-002.jpg
+          <div class="img-date">Uploaded: August 2022</div>
+        </div>
+      </div>
+
+      <!-- Item 12 -->
+      <div class="gallery-item reveal" data-filename="spiderman-aerial-003.jpg" data-date="September 2022" data-scene="12">
+        <div class="img-wrapper" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="View spiderman-aerial-003.jpg">
+          <canvas id="sp-canvas-12" class="img-canvas" width="400" height="300" aria-label="spiderman-aerial-003.jpg"></canvas>
+          <div class="hover-overlay"><span class="img-icon">&#9654;</span></div>
+          <span class="watermark">© Peter Parker | SpiderPhotos.com</span>
+        </div>
+        <div class="img-caption">
+          spiderman-aerial-003.jpg
+          <div class="img-date">Uploaded: September 2022</div>
+        </div>
+      </div>
+
+    </div><!-- /gallery-grid -->
+  </section>
+
+  <!-- ============================================================
+       LICENSING SECTION
+  ============================================================ -->
+  <section id="licensing" aria-labelledby="licensing-heading">
+    <div class="section-header reveal">
+      <span class="eyebrow">Usage Rights</span>
+      <h2 id="licensing-heading">Licensing</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="license-box reveal">
+      <p>
+        All images are available for commercial licensing.
+        Contact <a href="mailto:peter@spiderphotos.com">peter@spiderphotos.com</a> for rates.
+      </p>
+      <p>
+        Licence grants are provided in writing and specify permitted uses, territory,
+        duration, and medium. No image may be reproduced, distributed, transmitted,
+        displayed, published, or broadcast without prior written authorisation.
+      </p>
+
+      <div class="license-types">
+        <div class="license-type">
+          <strong>Editorial</strong>
+          <span>News, magazines, books - non-commercial</span>
+        </div>
+        <div class="license-type">
+          <strong>Commercial</strong>
+          <span>Advertising, marketing, branded content</span>
+        </div>
+        <div class="license-type">
+          <strong>Fine Art Print</strong>
+          <span>Limited-edition archival prints</span>
+        </div>
+      </div>
+
+      <div class="legal-notice" role="note" aria-label="Legal copyright notice">
+        <strong style="color:#e74c3c;">Copyright Notice:</strong>
+        All photographs on this website are the original creative works of Peter Benjamin Parker
+        and are protected under the <em>Copyright Act 1968</em> (Cth) of Australia. Unauthorised
+        reproduction, distribution, or any other use of these images constitutes an infringement
+        of copyright and may give rise to civil and criminal liability. All rights reserved.
+        ABN: 47 123 456 789.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT SECTION
+  ============================================================ -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="section-header reveal">
+      <span class="eyebrow">Get in Touch</span>
+      <h2 id="contact-heading">Contact &amp; Commissions</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Peter Parker</h3>
+        <div class="contact-detail">
+          <span class="icon">&#9993;</span>
+          <p><a href="mailto:peter@spiderphotos.com">peter@spiderphotos.com</a></p>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">&#9679;</span>
+          <p>Sydney, NSW, Australia</p>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">&#9679;</span>
+          <p>ABN: 47 123 456 789</p>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">&#9679;</span>
+          <p>Available for editorial, commercial,<br>and fine-art commissions.</p>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">&#9679;</span>
+          <p>Response time: 1–2 business days</p>
+        </div>
+      </div>
+
+      <div class="contact-form reveal">
+        <form action="#" method="post" aria-label="Contact form">
+          <label for="cf-name" style="display:none;">Name</label>
+          <input type="text" id="cf-name" name="name" placeholder="Your Name" required>
+          <label for="cf-email" style="display:none;">Email</label>
+          <input type="email" id="cf-email" name="email" placeholder="Your Email" required>
+          <label for="cf-subject" style="display:none;">Subject</label>
+          <input type="text" id="cf-subject" name="subject" placeholder="Subject (e.g. Licensing Enquiry)">
+          <label for="cf-msg" style="display:none;">Message</label>
+          <textarea id="cf-msg" name="message" placeholder="Your message…" required></textarea>
+          <button type="submit" class="btn btn-fill" style="width:100%;border:none;cursor:pointer;">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Copyright registered with the Australian Copyright Council - Ref: ACC-2022-PP-0441 -->
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer role="contentinfo">
+    <div class="footer-logo"><span>Spider</span>Photos.com</div>
+    <div class="footer-copy">
+      © 2022 Peter Parker | SpiderPhotos.com | ABN 47 123 456 789 | All Rights Reserved<br>
+      Sydney, NSW, Australia · peter@spiderphotos.com<br>
+      All photographs are original works protected under the <em>Copyright Act 1968</em> (Cth).
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       LIGHTBOX
+  ============================================================ -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+    <span class="lb-close" onclick="closeLightbox()" aria-label="Close lightbox">&times;</span>
+    <canvas id="lb-canvas" class="lb-img" width="800" height="600"></canvas>
+    <div class="lb-caption" id="lb-caption"></div>
+  </div>
+
+  <!-- ============================================================
+       JAVASCRIPT - UI + SPIDER-MAN CANVAS ENGINE
+  ============================================================ -->
+  <script>
+    /* ---- Scroll-reveal ---- */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ---- Lightbox - scales the scene canvas up to 800x600 ---- */
+    function openLightbox(wrapper) {
+      const item     = wrapper.closest('.gallery-item');
+      const filename = item.dataset.filename;
+      const date     = item.dataset.date;
+      const sceneC   = wrapper.querySelector('.img-canvas');
+      const lb       = document.getElementById('lightbox');
+      const lbCanvas = document.getElementById('lb-canvas');
+      const caption  = document.getElementById('lb-caption');
+      const ctx      = lbCanvas.getContext('2d');
+      ctx.clearRect(0, 0, lbCanvas.width, lbCanvas.height);
+      if (sceneC) ctx.drawImage(sceneC, 0, 0, lbCanvas.width, lbCanvas.height);
+      caption.textContent = filename + '  \u00B7  ' + date + '  \u00B7  \u00A9 Peter Parker';
+      lb.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    /* ---- Keyboard accessibility ---- */
+    document.querySelectorAll('.img-wrapper[tabindex]').forEach(el => {
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openLightbox(el); });
+    });
+
+    /* ---- Contact form ---- */
+    document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.innerHTML = '<p style="color:#e74c3c;font-size:0.9rem;padding:1rem 0;">Thank you - Peter will be in touch within 1\u20132 business days.</p>';
+    });
+
+    /* ---- Nav scroll highlight ---- */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+      navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? '#e74c3c' : ''; });
+    }, { passive: true });
+
+    /* ================================================================
+       SPIDER-MAN CANVAS DRAWING ENGINE
+       12 unique scenes - all drawn programmatically, no external images
+    ================================================================ */
+    (function () {
+      'use strict';
+      const W = 400, H = 300;
+
+      /* Deterministic pseudo-random (LCG) */
+      function lcg(seed) {
+        return function () {
+          seed = (seed * 1664525 + 1013904223) & 0xffffffff;
+          return (seed >>> 0) / 0xffffffff;
+        };
+      }
+
+      /* Sky gradient */
+      function sky(ctx, stops) {
+        const g = ctx.createLinearGradient(0, 0, 0, H);
+        stops.forEach(s => g.addColorStop(s[0], s[1]));
+        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      }
+
+      /* Stars */
+      function stars(ctx, n, maxY) {
+        const rnd = lcg(42 + n);
+        maxY = maxY || H * 0.65;
+        for (let i = 0; i < n; i++) {
+          const x = rnd() * W, y = rnd() * maxY, r = i % 5 === 0 ? 1.4 : 0.7;
+          ctx.fillStyle = 'rgba(255,255,255,' + (0.4 + rnd() * 0.5) + ')';
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+
+      /* Moon */
+      function moon(ctx, x, y, r) {
+        const glow = ctx.createRadialGradient(x, y, r * 0.4, x, y, r * 2.5);
+        glow.addColorStop(0, 'rgba(255,245,200,0.25)');
+        glow.addColorStop(1, 'rgba(255,245,200,0)');
+        ctx.fillStyle = glow; ctx.fillRect(x - r * 3, y - r * 3, r * 6, r * 6);
+        ctx.fillStyle = '#f8f0d0';
+        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = 'rgba(0,0,0,0.08)';
+        [[-0.2,-0.15,0.18],[0.3,0.25,0.12],[-0.1,0.3,0.09]].forEach(function(c) {
+          ctx.beginPath(); ctx.arc(x + r*c[0], y + r*c[1], r*c[2], 0, Math.PI*2); ctx.fill();
+        });
+      }
+
+      /* Sun */
+      function sun(ctx, x, y, r) {
+        ctx.strokeStyle = 'rgba(255,180,0,0.25)'; ctx.lineWidth = 1.5;
+        for (var a = 0; a < Math.PI * 2; a += Math.PI / 7) {
+          ctx.beginPath();
+          ctx.moveTo(x + Math.cos(a)*r*1.35, y + Math.sin(a)*r*1.35);
+          ctx.lineTo(x + Math.cos(a)*r*2.2,  y + Math.sin(a)*r*2.2);
+          ctx.stroke();
+        }
+        const sg = ctx.createRadialGradient(x, y, 0, x, y, r);
+        sg.addColorStop(0, '#fffbe0'); sg.addColorStop(1, '#ff8c00');
+        ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+      }
+
+      /* Building row */
+      function buildingRow(ctx, specs) {
+        specs.forEach(function(s) {
+          ctx.fillStyle = s.col || '#0d0d20';
+          ctx.fillRect(s.x, H - s.h, s.w, s.h);
+          if (s.win) {
+            const rnd = lcg(s.x * 13 + s.h);
+            for (let wy = H - s.h + 5; wy < H - 4; wy += 9) {
+              for (let wx = s.x + 3; wx < s.x + s.w - 3; wx += 7) {
+                if (rnd() > 0.35) { ctx.fillStyle = s.win; ctx.fillRect(wx, wy, 4, 5); }
+              }
+            }
+          }
+        });
+      }
+
+      /* City grid (aerial view) */
+      function cityGrid(ctx, ox, oy, cols, rows, cw, rh) {
+        const rnd = lcg(ox * 7 + oy);
+        ctx.strokeStyle = 'rgba(255,200,100,0.18)'; ctx.lineWidth = 1;
+        for (let c = 0; c <= cols; c++) {
+          ctx.beginPath(); ctx.moveTo(ox+c*cw, oy); ctx.lineTo(ox+c*cw, oy+rows*rh); ctx.stroke();
+        }
+        for (let r = 0; r <= rows; r++) {
+          ctx.beginPath(); ctx.moveTo(ox, oy+r*rh); ctx.lineTo(ox+cols*cw, oy+r*rh); ctx.stroke();
+        }
+        for (let c = 0; c < cols; c++) for (let r = 0; r < rows; r++) {
+          const b = rnd();
+          if (b > 0.45) {
+            ctx.fillStyle = 'rgba(255,185,60,' + (0.04 + b*0.12) + ')';
+            ctx.fillRect(ox+c*cw+1, oy+r*rh+1, cw-2, rh-2);
+          }
+        }
+      }
+
+      /* Harbour Bridge arch */
+      function harbourBridge(ctx, x1, x2, roadY, sc) {
+        sc = sc || 1;
+        const archPeak = roadY - 90*sc, mx = (x1+x2)/2;
+        ctx.strokeStyle = '#1a252f'; ctx.lineWidth = 6*sc;
+        ctx.beginPath(); ctx.moveTo(x1,roadY); ctx.quadraticCurveTo(mx,archPeak,x2,roadY); ctx.stroke();
+        ctx.strokeStyle = '#0d1b2a'; ctx.lineWidth = 8*sc;
+        ctx.beginPath(); ctx.moveTo(x1,roadY); ctx.lineTo(x2,roadY); ctx.stroke();
+        ctx.strokeStyle = 'rgba(20,30,50,0.5)'; ctx.lineWidth = 1;
+        for (let t = 0.05; t <= 0.95; t += 0.05) {
+          const bx = x1+(x2-x1)*t;
+          const cy2 = roadY+(archPeak-roadY)*Math.sin(t*Math.PI);
+          ctx.beginPath(); ctx.moveTo(bx,cy2); ctx.lineTo(bx,roadY); ctx.stroke();
+        }
+        ctx.fillStyle = '#12202e';
+        ctx.fillRect(x1-10, roadY-70*sc, 20, 70*sc);
+        ctx.fillRect(x2-10, roadY-70*sc, 20, 70*sc);
+      }
+
+      /* Opera House sails (bezier curves) */
+      function operaHouse(ctx, x, y, sc) {
+        sc = sc || 1;
+        function sail(pts, alpha) {
+          ctx.fillStyle = 'rgba(215,215,205,' + alpha + ')';
+          ctx.beginPath(); ctx.moveTo(x+pts[0]*sc, y+pts[1]*sc);
+          ctx.bezierCurveTo(x+pts[2]*sc,y+pts[3]*sc, x+pts[4]*sc,y+pts[5]*sc, x+pts[6]*sc,y+pts[7]*sc);
+          ctx.bezierCurveTo(x+pts[8]*sc,y+pts[9]*sc, x+pts[10]*sc,y+pts[11]*sc, x+pts[0]*sc,y+pts[1]*sc);
+          ctx.closePath(); ctx.fill();
+        }
+        sail([0,0, -20,-38, -42,-40, -55,-8, -38,0, 0,0], 0.92);
+        sail([0,0,  12,-48,  30,-52,  52,-6,  36,0, 0,0], 0.86);
+        sail([18,0, 30,-30,  50,-32,  76,-5,  60,0,18,0], 0.66);
+        ctx.fillStyle = 'rgba(170,170,162,0.82)';
+        ctx.fillRect(x-58*sc, y, 140*sc, 9*sc);
+      }
+
+      /* Brooklyn Bridge */
+      function brooklynBridge(ctx, x1, x2, roadY) {
+        const towH = 55, mx = (x1+x2)/2;
+        ctx.strokeStyle = '#253545'; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.moveTo(x1,roadY-towH); ctx.quadraticCurveTo(mx,roadY+15,x2,roadY-towH); ctx.stroke();
+        ctx.strokeStyle = '#1a2535'; ctx.lineWidth = 7;
+        ctx.beginPath(); ctx.moveTo(x1-20,roadY); ctx.lineTo(x2+20,roadY); ctx.stroke();
+        ctx.strokeStyle = 'rgba(30,45,60,0.6)'; ctx.lineWidth = 1;
+        for (let t = 0.05; t <= 0.95; t += 0.07) {
+          const bx = x1+(x2-x1)*t;
+          const cableY = (roadY-towH)+(roadY+15-(roadY-towH))*(4*t*(1-t));
+          ctx.beginPath(); ctx.moveTo(bx,cableY); ctx.lineTo(bx,roadY); ctx.stroke();
+        }
+        ctx.fillStyle = '#182230';
+        ctx.fillRect(x1-9,roadY-towH-8,18,towH+8); ctx.fillRect(x2-9,roadY-towH-8,18,towH+8);
+        ctx.fillStyle = '#1e2d40';
+        ctx.fillRect(x1-6,roadY-towH-25,12,18); ctx.fillRect(x2-6,roadY-towH-25,12,18);
+      }
+
+      /* Web strand */
+      function webLine(ctx, x1, y1, x2, y2, col) {
+        ctx.strokeStyle = col || 'rgba(255,255,255,0.45)'; ctx.lineWidth = 1.4;
+        const mx=(x1+x2)/2, my=(y1+y2)/2+12;
+        ctx.beginPath(); ctx.moveTo(x1,y1); ctx.quadraticCurveTo(mx,my,x2,y2); ctx.stroke();
+      }
+
+      /* Watermark */
+      function wm(ctx) {
+        ctx.save();
+        ctx.fillStyle = 'rgba(255,255,255,0.38)';
+        ctx.font = '9px Montserrat, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText('\u00A9 Peter Parker | SpiderPhotos.com', W-6, H-6);
+        ctx.restore();
+      }
+
+      /* ================================================================
+         SPIDER-MAN FIGURE
+      ================================================================ */
+      function spidey(ctx, cx, cy, sc, pose) {
+        ctx.save(); ctx.translate(cx, cy); ctx.scale(sc, sc);
+        const R='#c0392b', RD='#7b241c', B='#1a5276', WH='white';
+
+        function head(hy) {
+          ctx.fillStyle = R;
+          ctx.beginPath(); ctx.arc(0, hy, 12, 0, Math.PI*2); ctx.fill();
+          ctx.strokeStyle = RD; ctx.lineWidth = 0.6;
+          for (let a = 0; a < Math.PI*2; a += Math.PI/5) {
+            ctx.beginPath(); ctx.moveTo(0,hy); ctx.lineTo(Math.cos(a)*12, hy+Math.sin(a)*12); ctx.stroke();
+          }
+          for (let rr = 3; rr < 13; rr += 4) { ctx.beginPath(); ctx.arc(0,hy,rr,0,Math.PI*2); ctx.stroke(); }
+          ctx.fillStyle = WH;
+          ctx.save(); ctx.translate(-4.5,hy-2); ctx.rotate(-0.25);
+          ctx.beginPath(); ctx.ellipse(0,0,4.5,6.5,0,0,Math.PI*2); ctx.fill(); ctx.restore();
+          ctx.save(); ctx.translate(4.5,hy-2); ctx.rotate(0.25);
+          ctx.beginPath(); ctx.ellipse(0,0,4.5,6.5,0,0,Math.PI*2); ctx.fill(); ctx.restore();
+        }
+
+        function body() {
+          ctx.fillStyle = R; ctx.beginPath(); ctx.ellipse(0,0,11,14,0,0,Math.PI*2); ctx.fill();
+          ctx.fillStyle = B;
+          ctx.beginPath(); ctx.ellipse(-8,1,5,11,0.25,0,Math.PI*2); ctx.fill();
+          ctx.beginPath(); ctx.ellipse(8,1,5,11,-0.25,0,Math.PI*2); ctx.fill();
+          ctx.fillStyle = R; ctx.beginPath(); ctx.ellipse(0,0,7,11,0,0,Math.PI*2); ctx.fill();
+          ctx.strokeStyle = RD; ctx.lineWidth = 0.6;
+          for (let a = 0; a < Math.PI*2; a += Math.PI/4) {
+            ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(Math.cos(a)*12,Math.sin(a)*12); ctx.stroke();
+          }
+        }
+
+        ctx.lineCap = 'round';
+
+        if (pose === 'crouch') {
+          ctx.strokeStyle=B; ctx.lineWidth=7;
+          ctx.beginPath(); ctx.moveTo(0,8); ctx.lineTo(-14,30); ctx.lineTo(-9,50); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(0,8); ctx.lineTo(14,30);  ctx.lineTo(9,50);  ctx.stroke();
+          body();
+          ctx.strokeStyle=B; ctx.lineWidth=6;
+          ctx.beginPath(); ctx.moveTo(-8,-6); ctx.lineTo(-28,5);  ctx.lineTo(-22,22); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(8,-6);  ctx.lineTo(28,5);   ctx.lineTo(22,22);  ctx.stroke();
+          head(-20);
+
+        } else if (pose === 'stand') {
+          ctx.strokeStyle=B; ctx.lineWidth=8;
+          ctx.beginPath(); ctx.moveTo(-4,12); ctx.lineTo(-8,46); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(4,12);  ctx.lineTo(8,46);  ctx.stroke();
+          ctx.lineWidth=5;
+          ctx.beginPath(); ctx.moveTo(-8,46); ctx.lineTo(-15,49); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(8,46);  ctx.lineTo(15,49);  ctx.stroke();
+          body();
+          ctx.strokeStyle=B; ctx.lineWidth=6;
+          ctx.beginPath(); ctx.moveTo(-9,-8); ctx.lineTo(-20,10); ctx.lineTo(-15,29); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(9,-8);  ctx.lineTo(20,10);  ctx.lineTo(15,29);  ctx.stroke();
+          head(-22);
+
+        } else if (pose === 'swing') {
+          ctx.strokeStyle=B; ctx.lineWidth=7;
+          ctx.save(); ctx.rotate(-0.25);
+          ctx.beginPath(); ctx.moveTo(0,12); ctx.lineTo(-16,36); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(0,12); ctx.lineTo(10,40);  ctx.stroke();
+          ctx.restore();
+          body();
+          ctx.strokeStyle=B; ctx.lineWidth=6;
+          ctx.beginPath(); ctx.moveTo(-7,-6);  ctx.lineTo(-32,-22); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(7,-6);   ctx.lineTo(18,-26);  ctx.stroke();
+          ctx.strokeStyle='rgba(255,255,255,0.7)'; ctx.lineWidth=1.5;
+          ctx.beginPath(); ctx.moveTo(18,-26); ctx.lineTo(62,-56); ctx.stroke();
+          head(-20);
+
+        } else if (pose === 'webshoot') {
+          ctx.strokeStyle=B; ctx.lineWidth=7;
+          ctx.beginPath(); ctx.moveTo(-3,12); ctx.lineTo(-8,42); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(3,12);  ctx.lineTo(8,42);  ctx.stroke();
+          body();
+          ctx.strokeStyle=B; ctx.lineWidth=6;
+          ctx.beginPath(); ctx.moveTo(8,-5);  ctx.lineTo(36,-26); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(-8,-5); ctx.lineTo(-20,5);  ctx.stroke();
+          ctx.strokeStyle='rgba(255,255,255,0.75)'; ctx.lineWidth=1.5;
+          ctx.beginPath(); ctx.moveTo(36,-26); ctx.lineTo(82,-56); ctx.stroke();
+          head(-22);
+
+        } else if (pose === 'upside') {
+          ctx.strokeStyle=B; ctx.lineWidth=7;
+          ctx.beginPath(); ctx.moveTo(-5,-12); ctx.lineTo(-12,-42); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(5,-12);  ctx.lineTo(12,-42);  ctx.stroke();
+          ctx.save(); ctx.scale(1,-1); body(); ctx.restore();
+          ctx.strokeStyle=B; ctx.lineWidth=6;
+          ctx.beginPath(); ctx.moveTo(-8,8); ctx.lineTo(-22,26); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(8,8);  ctx.lineTo(22,26);  ctx.stroke();
+          ctx.strokeStyle='rgba(255,255,255,0.7)'; ctx.lineWidth=1.5;
+          ctx.beginPath(); ctx.moveTo(-5,-35); ctx.lineTo(-10,-62); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(5,-35);  ctx.lineTo(10,-62);  ctx.stroke();
+          /* upside-down head */
+          ctx.save(); ctx.translate(0,22); ctx.scale(1,-1);
+          ctx.fillStyle=R; ctx.beginPath(); ctx.arc(0,0,12,0,Math.PI*2); ctx.fill();
+          ctx.strokeStyle=RD; ctx.lineWidth=0.6;
+          for (let a=0;a<Math.PI*2;a+=Math.PI/5){ ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(Math.cos(a)*12,Math.sin(a)*12); ctx.stroke(); }
+          for (let rr=3;rr<13;rr+=4){ ctx.beginPath(); ctx.arc(0,0,rr,0,Math.PI*2); ctx.stroke(); }
+          ctx.fillStyle=WH;
+          ctx.save(); ctx.translate(-4.5,-2); ctx.rotate(-0.25); ctx.beginPath(); ctx.ellipse(0,0,4.5,6.5,0,0,Math.PI*2); ctx.fill(); ctx.restore();
+          ctx.save(); ctx.translate(4.5,-2);  ctx.rotate(0.25);  ctx.beginPath(); ctx.ellipse(0,0,4.5,6.5,0,0,Math.PI*2); ctx.fill(); ctx.restore();
+          ctx.restore();
+
+        } else if (pose === 'dive') {
+          ctx.save(); ctx.rotate(0.35);
+          ctx.strokeStyle=B; ctx.lineWidth=7;
+          ctx.beginPath(); ctx.moveTo(-5,5);  ctx.lineTo(-24,28); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(5,5);   ctx.lineTo(18,30);  ctx.stroke();
+          body();
+          ctx.strokeStyle=B; ctx.lineWidth=6;
+          ctx.beginPath(); ctx.moveTo(-8,-8); ctx.lineTo(-36,-5); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(8,-8);  ctx.lineTo(35,0);   ctx.stroke();
+          head(-20);
+          ctx.restore();
+        }
+
+        ctx.restore();
+      }
+
+      /* ================================================================
+         12 SCENE FUNCTIONS
+      ================================================================ */
+
+      /* Scene 1 - NYC night, water tower rooftop, full moon */
+      function s1(ctx) {
+        sky(ctx,[[0,'#03030e'],[0.45,'#090c1e'],[1,'#141e36']]);
+        stars(ctx,110);
+        moon(ctx,58,44,22);
+        buildingRow(ctx,[
+          {x:0,w:45,h:220,col:'#06061a',win:'rgba(255,215,90,0.55)'},
+          {x:50,w:30,h:175,col:'#050518'},
+          {x:85,w:55,h:255,col:'#07071c',win:'rgba(255,215,90,0.6)'},
+          {x:145,w:25,h:145,col:'#050518'},
+          {x:175,w:68,h:215,col:'#08081e',win:'rgba(255,215,90,0.5)'},
+          {x:248,w:40,h:190,col:'#06061a',win:'rgba(255,215,90,0.45)'},
+          {x:293,w:60,h:235,col:'#07071c',win:'rgba(255,215,90,0.55)'},
+          {x:358,w:45,h:168,col:'#050518',win:'rgba(255,215,90,0.4)'},
+        ]);
+        ctx.fillStyle='#0c1120'; ctx.fillRect(135,232,130,68);
+        ctx.fillStyle='#090e1a'; ctx.fillRect(145,225,110,10);
+        ctx.fillStyle='#190f20'; ctx.fillRect(192,193,22,40);
+        ctx.fillStyle='#1a1028';
+        ctx.beginPath(); ctx.ellipse(203,193,14,8,0,0,Math.PI*2); ctx.fill();
+        spidey(ctx,235,222,1.0,'crouch');
+        wm(ctx);
+      }
+
+      /* Scene 2 - Sunset, standing on ledge */
+      function s2(ctx) {
+        sky(ctx,[[0,'#180800'],[0.22,'#7a1e00'],[0.45,'#b83000'],[0.62,'#d4500a'],[0.78,'#e8920c'],[0.9,'#f0b830'],[1,'#130600']]);
+        buildingRow(ctx,[
+          {x:0,w:38,h:165,col:'#090300'},{x:43,w:52,h:205,col:'#0b0400'},
+          {x:100,w:28,h:130,col:'#090300'},{x:133,w:72,h:225,col:'#0c0500'},
+          {x:210,w:42,h:178,col:'#090300'},{x:257,w:32,h:142,col:'#0a0400'},
+          {x:294,w:62,h:194,col:'#0b0400'},{x:361,w:45,h:215,col:'#0c0500'},
+        ]);
+        sun(ctx,195,162,19);
+        ctx.fillStyle='#050200'; ctx.fillRect(0,248,W,52);
+        ctx.fillStyle='#0a0600'; ctx.fillRect(0,241,W,10);
+        ctx.save();
+        ctx.shadowColor='rgba(240,140,20,0.6)'; ctx.shadowBlur=22;
+        spidey(ctx,295,236,1.1,'stand');
+        ctx.restore();
+        wm(ctx);
+      }
+
+      /* Scene 3 - Purple night, web-shooting */
+      function s3(ctx) {
+        sky(ctx,[[0,'#08001a'],[0.5,'#160028'],[1,'#250040']]);
+        stars(ctx,70);
+        buildingRow(ctx,[
+          {x:0,w:62,h:205,col:'#0e001e',win:'rgba(175,130,255,0.4)'},
+          {x:67,w:42,h:172,col:'#0b0018'},
+          {x:114,w:52,h:225,col:'#0e001e',win:'rgba(175,130,255,0.38)'},
+          {x:171,w:32,h:152,col:'#0b0018'},
+          {x:208,w:82,h:242,col:'#0f001f',win:'rgba(195,155,255,0.45)'},
+          {x:295,w:47,h:183,col:'#0b0018',win:'rgba(175,130,255,0.32)'},
+          {x:347,w:60,h:212,col:'#0e001e',win:'rgba(175,130,255,0.42)'},
+        ]);
+        ctx.strokeStyle='rgba(255,255,255,0.55)'; ctx.lineWidth=1.4;
+        ctx.beginPath(); ctx.moveTo(25,78); ctx.quadraticCurveTo(195,148,368,72); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(25,78); ctx.quadraticCurveTo(195,108,368,72); ctx.stroke();
+        ctx.fillStyle='#090015'; ctx.fillRect(58,208,125,92);
+        ctx.fillStyle='#070010'; ctx.fillRect(68,202,105,9);
+        spidey(ctx,148,198,1.0,'webshoot');
+        wm(ctx);
+      }
+
+      /* Scene 4 - Manhattan aerial grid, Spidey diving */
+      function s4(ctx) {
+        sky(ctx,[[0,'#08101e'],[0.38,'#182540'],[0.72,'#2a3f6e'],[1,'#4a6898']]);
+        ctx.fillStyle='#0c1424'; ctx.fillRect(0,82,W,H-82);
+        cityGrid(ctx,18,90,16,11,23,19);
+        ctx.strokeStyle='rgba(255,200,100,0.15)'; ctx.lineWidth=2;
+        for(let i=0;i<8;i++){ ctx.beginPath(); ctx.moveTo(i*57,82); ctx.lineTo(i*57,H); ctx.stroke(); }
+        for(let i=0;i<7;i++){ ctx.beginPath(); ctx.moveTo(0,86+i*32); ctx.lineTo(W,86+i*32); ctx.stroke(); }
+        const hg=ctx.createLinearGradient(0,72,0,104);
+        hg.addColorStop(0,'rgba(255,155,0,0.45)'); hg.addColorStop(1,'rgba(255,155,0,0)');
+        ctx.fillStyle=hg; ctx.fillRect(0,72,W,32);
+        spidey(ctx,198,58,0.72,'dive');
+        wm(ctx);
+      }
+
+      /* Scene 5 - Night Manhattan towers, Spidey upside-down */
+      function s5(ctx) {
+        sky(ctx,[[0,'#000004'],[0.5,'#04040e'],[1,'#080818']]);
+        stars(ctx,35);
+        buildingRow(ctx,[
+          {x:0,w:55,h:260,col:'#05050e',win:'rgba(255,215,90,0.68)'},
+          {x:60,w:70,h:300,col:'#070714',win:'rgba(255,215,90,0.72)'},
+          {x:135,w:50,h:242,col:'#05050e',win:'rgba(255,185,55,0.62)'},
+          {x:190,w:42,h:272,col:'#070714',win:'rgba(255,215,90,0.68)'},
+          {x:237,w:80,h:300,col:'#05050e',win:'rgba(255,200,75,0.72)'},
+          {x:322,w:46,h:252,col:'#070714',win:'rgba(255,215,90,0.62)'},
+          {x:373,w:35,h:222,col:'#05050e',win:'rgba(255,185,55,0.56)'},
+        ]);
+        ctx.fillStyle='rgba(255,45,45,0.055)'; ctx.fillRect(125,0,155,H);
+        ctx.fillStyle='rgba(45,195,255,0.038)'; ctx.fillRect(195,0,90,H);
+        spidey(ctx,158,98,0.88,'upside');
+        wm(ctx);
+      }
+
+      /* Scene 6 - Brooklyn Bridge, blue-hour dawn */
+      function s6(ctx) {
+        sky(ctx,[[0,'#010712'],[0.42,'#08162c'],[0.72,'#123058'],[1,'#1e4898']]);
+        stars(ctx,45);
+        ctx.fillStyle='#040e1e'; ctx.fillRect(0,200,W,100);
+        buildingRow(ctx,[
+          {x:0,w:38,h:98,col:'#050f1c'},{x:44,w:28,h:78,col:'#040d1a'},
+          {x:77,w:52,h:118,col:'#060f1d'},
+          {x:275,w:43,h:108,col:'#060f1d'},{x:323,w:33,h:93,col:'#040d1a'},{x:361,w:38,h:112,col:'#060f1d'},
+        ]);
+        brooklynBridge(ctx,35,365,205);
+        spidey(ctx,188,158,0.85,'swing');
+        const wg=ctx.createLinearGradient(0,200,0,300);
+        wg.addColorStop(0,'rgba(80,140,255,0.12)'); wg.addColorStop(1,'rgba(0,0,0,0.5)');
+        ctx.fillStyle=wg; ctx.fillRect(0,200,W,100);
+        wm(ctx);
+      }
+
+      /* Scene 7 - Sydney Harbour Bridge at sunrise */
+      function s7(ctx) {
+        sky(ctx,[[0,'#160800'],[0.28,'#aa2a00'],[0.5,'#d43500'],[0.65,'#df5e08'],[0.8,'#e8920c'],[0.92,'#f5c820'],[1,'#0c1218']]);
+        ctx.fillStyle='#09101c'; ctx.fillRect(0,214,W,86);
+        const wg=ctx.createLinearGradient(0,214,0,300);
+        wg.addColorStop(0,'rgba(190,90,0,0.22)'); wg.addColorStop(1,'rgba(0,15,30,0.9)');
+        ctx.fillStyle=wg; ctx.fillRect(0,214,W,86);
+        buildingRow(ctx,[
+          {x:232,w:25,h:108,col:'#090500'},{x:262,w:35,h:138,col:'#0b0600'},
+          {x:302,w:22,h:98,col:'#090500'},{x:329,w:45,h:158,col:'#0b0600'},{x:379,w:28,h:118,col:'#090500'},
+        ]);
+        operaHouse(ctx,312,214,0.72);
+        harbourBridge(ctx,22,282,214,1.0);
+        spidey(ctx,150,148,0.9,'stand');
+        wm(ctx);
+      }
+
+      /* Scene 8 - Sydney CBD day, Opera House rooftop */
+      function s8(ctx) {
+        sky(ctx,[[0,'#184888'],[0.4,'#1e5ab4'],[0.78,'#3d88d8'],[1,'#7ab8ee']]);
+        const rnd=lcg(808);
+        [[82,50,40,18],[112,45,28,14],[62,56,24,12]].forEach(function(c) {
+          ctx.fillStyle='rgba(255,255,255,'+(0.45+rnd()*0.25)+')';
+          ctx.beginPath(); ctx.ellipse(c[0],c[1],c[2],c[3],0,0,Math.PI*2); ctx.fill();
+        });
+        const wg2=ctx.createLinearGradient(0,218,0,300);
+        wg2.addColorStop(0,'#1e58a8'); wg2.addColorStop(1,'#102e5c');
+        ctx.fillStyle=wg2; ctx.fillRect(0,218,W,82);
+        buildingRow(ctx,[
+          {x:0,w:30,h:148,col:'#284058'},{x:35,w:25,h:118,col:'#223450'},
+          {x:65,w:46,h:178,col:'#284058'},{x:116,w:20,h:98,col:'#1c2c44'},
+          {x:141,w:34,h:162,col:'#284058'},{x:180,w:25,h:128,col:'#223450'},
+        ]);
+        operaHouse(ctx,282,218,1.0);
+        ctx.fillStyle='#182434'; ctx.fillRect(78,208,142,92);
+        ctx.fillStyle='#121c28'; ctx.fillRect(88,202,122,9);
+        ctx.fillStyle='#1e2e45';
+        ctx.fillRect(98,195,22,9); ctx.fillRect(144,192,17,13);
+        spidey(ctx,178,198,1.0,'crouch');
+        wm(ctx);
+      }
+
+      /* Scene 9 - Sydney blue night, harbour reflection, swinging */
+      function s9(ctx) {
+        sky(ctx,[[0,'#000718'],[0.38,'#000e28'],[0.65,'#001848'],[1,'#002d65']]);
+        stars(ctx,88);
+        ctx.fillStyle='#001020'; ctx.fillRect(0,198,W,102);
+        ctx.fillStyle='rgba(255,195,90,0.08)';
+        for(let lx=18;lx<W;lx+=34){
+          ctx.beginPath(); ctx.moveTo(lx,198); ctx.lineTo(lx-9,300); ctx.lineTo(lx+9,300); ctx.closePath(); ctx.fill();
+        }
+        buildingRow(ctx,[
+          {x:0,w:30,h:148,col:'#03091a',win:'rgba(255,215,90,0.5)'},
+          {x:35,w:25,h:118,col:'#030818'},
+          {x:65,w:46,h:178,col:'#03091a',win:'rgba(255,215,90,0.55)'},
+          {x:116,w:20,h:98,col:'#030818'},
+          {x:141,w:34,h:162,col:'#03091a',win:'rgba(255,200,75,0.45)'},
+          {x:222,w:30,h:138,col:'#030818',win:'rgba(255,215,90,0.42)'},
+          {x:257,w:50,h:168,col:'#03091a',win:'rgba(255,215,90,0.5)'},
+          {x:312,w:34,h:142,col:'#030818'},
+          {x:351,w:54,h:162,col:'#03091a',win:'rgba(255,200,75,0.46)'},
+        ]);
+        webLine(ctx,345,48,135,78,'rgba(255,255,255,0.42)');
+        spidey(ctx,228,82,1.0,'swing');
+        wm(ctx);
+      }
+
+      /* Scene 10 - Storm, lightning, aerial dive */
+      function s10(ctx) {
+        sky(ctx,[[0,'#040408'],[0.45,'#060610'],[0.8,'#0a0a18'],[1,'#04040c']]);
+        ctx.fillStyle='rgba(18,18,30,0.82)';
+        [[105,58,88,38],[258,44,108,44],[362,68,68,34],[185,78,118,48]].forEach(function(c){
+          ctx.beginPath(); ctx.ellipse(c[0],c[1],c[2],c[3],0,0,Math.PI*2); ctx.fill();
+        });
+        ctx.fillStyle='#060710'; ctx.fillRect(0,212,W,88);
+        cityGrid(ctx,8,216,18,5,22,14);
+        const rnd=lcg(99);
+        ctx.strokeStyle='rgba(140,160,255,0.14)'; ctx.lineWidth=1;
+        for(let i=0;i<90;i++){
+          const rx=rnd()*W, ry=rnd()*H;
+          ctx.beginPath(); ctx.moveTo(rx,ry); ctx.lineTo(rx+2,ry+9); ctx.stroke();
+        }
+        ctx.save();
+        ctx.strokeStyle='rgba(190,210,255,0.9)'; ctx.lineWidth=2;
+        ctx.shadowColor='rgba(200,220,255,1)'; ctx.shadowBlur=10;
+        ctx.beginPath();
+        ctx.moveTo(292,28); ctx.lineTo(278,62); ctx.lineTo(288,67);
+        ctx.lineTo(268,108); ctx.lineTo(280,110); ctx.lineTo(258,162);
+        ctx.stroke(); ctx.restore();
+        spidey(ctx,152,112,0.82,'dive');
+        wm(ctx);
+      }
+
+      /* Scene 11 - Dramatic dusk, silhouette, swinging */
+      function s11(ctx) {
+        sky(ctx,[[0,'#090102'],[0.18,'#380008'],[0.38,'#840018'],[0.58,'#be2820'],[0.72,'#d8501a'],[0.86,'#e47818'],[1,'#0c0306']]);
+        sun(ctx,198,182,28);
+        buildingRow(ctx,[
+          {x:0,w:40,h:78,col:'#040100'},{x:45,w:60,h:118,col:'#050200'},
+          {x:110,w:26,h:68,col:'#040100'},{x:141,w:50,h:138,col:'#050200'},
+          {x:196,w:16,h:54,col:'#040100'},{x:217,w:54,h:108,col:'#050200'},
+          {x:276,w:36,h:88,col:'#040100'},{x:317,w:70,h:128,col:'#050200'},{x:392,w:22,h:72,col:'#040100'},
+        ]);
+        ctx.fillStyle='#020100'; ctx.fillRect(0,248,82,52); ctx.fillRect(W-102,243,102,57);
+        ctx.strokeStyle='rgba(255,195,85,0.38)'; ctx.lineWidth=1.5;
+        ctx.beginPath(); ctx.moveTo(78,248); ctx.quadraticCurveTo(196,158,W-100,243); ctx.stroke();
+        spidey(ctx,208,188,1.05,'swing');
+        wm(ctx);
+      }
+
+      /* Scene 12 - Blue hour aerial, city lights, Spidey suspended */
+      function s12(ctx) {
+        sky(ctx,[[0,'#010618'],[0.32,'#041230'],[0.62,'#082248'],[1,'#122858']]);
+        stars(ctx,125);
+        ctx.fillStyle='#020b1e'; ctx.fillRect(0,142,W,H-142);
+        cityGrid(ctx,0,150,20,8,20,18);
+        const rnd=lcg(77);
+        const lc=['rgba(255,215,90,','rgba(255,175,70,','rgba(90,175,255,','rgba(255,95,95,'];
+        for(let i=0;i<155;i++){
+          const lx=rnd()*W, ly=142+rnd()*(H-142), br=0.28+rnd()*0.65;
+          ctx.fillStyle=lc[Math.floor(rnd()*4)]+br+')';
+          ctx.beginPath(); ctx.arc(lx,ly,1.2,0,Math.PI*2); ctx.fill();
+        }
+        const hg=ctx.createLinearGradient(0,136,0,162);
+        hg.addColorStop(0,'rgba(75,135,255,0.32)'); hg.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.fillStyle=hg; ctx.fillRect(0,136,W,26);
+        webLine(ctx,0,28,196,78,'rgba(255,255,255,0.35)');
+        webLine(ctx,W,22,196,78,'rgba(255,255,255,0.35)');
+        spidey(ctx,196,78,0.95,'dive');
+        wm(ctx);
+      }
+
+      /* ================================================================
+         PORTRAIT - Peter Parker
+      ================================================================ */
+      function drawPortrait() {
+        const c = document.getElementById('portrait-canvas');
+        if (!c) return;
+        const ctx = c.getContext('2d');
+        const PW = 300, PH = 400;
+
+        /* Background - deep blue gradient */
+        const bg = ctx.createLinearGradient(0, 0, PW, PH);
+        bg.addColorStop(0, '#0f3460'); bg.addColorStop(0.55, '#16213e'); bg.addColorStop(1, '#0a0a1e');
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, PW, PH);
+
+        /* Background web (corner, subtle) */
+        ctx.strokeStyle = 'rgba(192,57,43,0.09)'; ctx.lineWidth = 1;
+        const wx = 270, wy = 30;
+        for (let a = 0; a < Math.PI * 2; a += Math.PI / 5) {
+          ctx.beginPath(); ctx.moveTo(wx, wy);
+          ctx.lineTo(wx + Math.cos(a) * 220, wy + Math.sin(a) * 220); ctx.stroke();
+        }
+        for (let r = 30; r <= 200; r += 38) { ctx.beginPath(); ctx.arc(wx, wy, r, 0, Math.PI * 2); ctx.stroke(); }
+
+        /* City silhouette at bottom */
+        ctx.fillStyle = 'rgba(6,10,20,0.75)';
+        [[0,28,45],[32,38,58],[75,22,68],[102,32,52],[140,42,62],[188,28,48],[220,46,72],[270,32,55]].forEach(function(b) {
+          ctx.fillRect(b[0], PH - b[2], b[1], b[2]);
+        });
+
+        /* ---- Figure ---- */
+        /* Hoodie body */
+        ctx.fillStyle = '#111828';
+        ctx.beginPath();
+        ctx.moveTo(82, PH); ctx.lineTo(72, 318);
+        ctx.quadraticCurveTo(78, 292, 108, 280);
+        ctx.lineTo(114, 265); ctx.lineTo(186, 265); ctx.lineTo(192, 280);
+        ctx.quadraticCurveTo(222, 292, 228, 318);
+        ctx.lineTo(218, PH); ctx.closePath(); ctx.fill();
+
+        /* Red hoodie centre stripe */
+        ctx.fillStyle = 'rgba(192,57,43,0.35)';
+        ctx.fillRect(144, 268, 12, PH - 268);
+
+        /* Left arm */
+        ctx.fillStyle = '#0e1520';
+        ctx.beginPath();
+        ctx.moveTo(72, 318); ctx.quadraticCurveTo(48, 338, 44, 368);
+        ctx.lineTo(60, 372); ctx.quadraticCurveTo(65, 344, 86, 325); ctx.closePath(); ctx.fill();
+
+        /* Right arm */
+        ctx.beginPath();
+        ctx.moveTo(228, 318); ctx.quadraticCurveTo(252, 338, 254, 362);
+        ctx.lineTo(240, 367); ctx.quadraticCurveTo(236, 342, 214, 325); ctx.closePath(); ctx.fill();
+
+        /* Camera body */
+        ctx.fillStyle = '#181818';
+        ctx.beginPath();
+        ctx.roundRect ? ctx.roundRect(104, 306, 92, 64, 6) : ctx.rect(104, 306, 92, 64);
+        ctx.fill();
+        ctx.fillStyle = '#0f0f0f';
+        ctx.beginPath();
+        ctx.roundRect ? ctx.roundRect(107, 309, 86, 58, 4) : ctx.rect(107, 309, 86, 58);
+        ctx.fill();
+        /* Lens */
+        ctx.fillStyle = '#0a0a0a';
+        ctx.beginPath(); ctx.arc(152, 337, 20, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#141425';
+        ctx.beginPath(); ctx.arc(152, 337, 15, 0, Math.PI * 2); ctx.fill();
+        const lensGrad = ctx.createRadialGradient(146, 330, 1, 152, 337, 15);
+        lensGrad.addColorStop(0, 'rgba(80,120,200,0.35)'); lensGrad.addColorStop(1, 'rgba(10,10,30,0.8)');
+        ctx.fillStyle = lensGrad; ctx.beginPath(); ctx.arc(152, 337, 15, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,0.18)';
+        ctx.beginPath(); ctx.arc(144, 328, 5, 0, Math.PI * 2); ctx.fill();
+        /* Viewfinder bump */
+        ctx.fillStyle = '#1c1c1c';
+        ctx.fillRect(174, 300, 20, 10);
+        /* Shutter button - red */
+        ctx.fillStyle = '#c0392b';
+        ctx.beginPath(); ctx.arc(184, 302, 4.5, 0, Math.PI * 2); ctx.fill();
+        /* Strap */
+        ctx.strokeStyle = '#c0392b'; ctx.lineWidth = 3; ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(104, 314); ctx.quadraticCurveTo(82, 295, 90, 270); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(196, 314); ctx.quadraticCurveTo(218, 295, 210, 270); ctx.stroke();
+
+        /* Neck */
+        ctx.fillStyle = '#c08868';
+        ctx.beginPath();
+        ctx.moveTo(136, 265); ctx.lineTo(131, 238); ctx.lineTo(169, 238); ctx.lineTo(164, 265);
+        ctx.closePath(); ctx.fill();
+
+        /* Hair - dark brown, slightly tousled */
+        ctx.fillStyle = '#180e06';
+        ctx.beginPath(); ctx.ellipse(150, 188, 54, 60, 0, 0, Math.PI * 2); ctx.fill();
+        /* Hair front tuft */
+        ctx.beginPath();
+        ctx.moveTo(106, 192); ctx.quadraticCurveTo(118, 152, 150, 146);
+        ctx.quadraticCurveTo(182, 152, 194, 168);
+        ctx.quadraticCurveTo(204, 180, 202, 192);
+        ctx.lineTo(194, 180); ctx.quadraticCurveTo(180, 158, 150, 155);
+        ctx.quadraticCurveTo(122, 158, 110, 180); ctx.closePath(); ctx.fill();
+        /* Tousled bits */
+        ctx.beginPath(); ctx.moveTo(150,148); ctx.quadraticCurveTo(145,136,150,132); ctx.quadraticCurveTo(155,136,150,148); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(162,150); ctx.quadraticCurveTo(165,138,170,136); ctx.quadraticCurveTo(172,142,162,150); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(138,150); ctx.quadraticCurveTo(135,138,130,136); ctx.quadraticCurveTo(128,142,138,150); ctx.fill();
+
+        /* Face */
+        const faceGrad = ctx.createRadialGradient(152, 196, 4, 150, 200, 44);
+        faceGrad.addColorStop(0, '#d4a47a'); faceGrad.addColorStop(1, '#b87c55');
+        ctx.fillStyle = faceGrad;
+        ctx.beginPath(); ctx.ellipse(150, 202, 44, 52, 0, 0, Math.PI * 2); ctx.fill();
+
+        /* Ears */
+        ctx.fillStyle = '#c09060';
+        ctx.beginPath(); ctx.ellipse(106, 204, 9, 13, -0.15, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(194, 204, 9, 13, 0.15, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = 'rgba(100,60,30,0.3)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(106, 204, 5, 0.3, Math.PI - 0.3); ctx.stroke();
+        ctx.beginPath(); ctx.arc(194, 204, 5, 0.3, Math.PI - 0.3, true); ctx.stroke();
+
+        /* Eyebrows */
+        ctx.strokeStyle = '#2e1a0a'; ctx.lineWidth = 2.8; ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(122, 184); ctx.quadraticCurveTo(132, 179, 142, 182); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(158, 182); ctx.quadraticCurveTo(168, 179, 178, 184); ctx.stroke();
+
+        /* Eyes - white */
+        ctx.fillStyle = '#eeebe0';
+        ctx.beginPath(); ctx.ellipse(132, 196, 11, 7.5, -0.1, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(168, 196, 11, 7.5, 0.1, 0, Math.PI * 2); ctx.fill();
+        /* Iris */
+        ctx.fillStyle = '#3a1e0a';
+        ctx.beginPath(); ctx.arc(133, 196, 6.5, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(168, 196, 6.5, 0, Math.PI * 2); ctx.fill();
+        /* Pupil */
+        ctx.fillStyle = '#08040a';
+        ctx.beginPath(); ctx.arc(133, 196, 3.5, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(168, 196, 3.5, 0, Math.PI * 2); ctx.fill();
+        /* Eye shine */
+        ctx.fillStyle = 'rgba(255,255,255,0.65)';
+        ctx.beginPath(); ctx.arc(130, 193, 1.8, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(165, 193, 1.8, 0, Math.PI * 2); ctx.fill();
+        /* Eyelid lines */
+        ctx.strokeStyle = 'rgba(70,35,15,0.45)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(121,196); ctx.quadraticCurveTo(132,190,143,196); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(157,196); ctx.quadraticCurveTo(168,190,179,196); ctx.stroke();
+
+        /* Nose */
+        ctx.strokeStyle = 'rgba(110,65,30,0.35)'; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(148,204); ctx.lineTo(142,218); ctx.quadraticCurveTo(150,224,158,218); ctx.lineTo(152,204); ctx.stroke();
+
+        /* Mouth - slight focused expression */
+        ctx.fillStyle = '#a06045';
+        ctx.beginPath();
+        ctx.moveTo(134,232); ctx.quadraticCurveTo(150,228,166,232);
+        ctx.quadraticCurveTo(150,242,134,232); ctx.fill();
+        ctx.fillStyle = '#905038';
+        ctx.beginPath();
+        ctx.moveTo(134,232); ctx.quadraticCurveTo(142,227,150,229);
+        ctx.quadraticCurveTo(158,227,166,232); ctx.quadraticCurveTo(150,226,134,232); ctx.fill();
+        /* Chin shadow */
+        ctx.fillStyle = 'rgba(80,40,15,0.18)';
+        ctx.beginPath(); ctx.ellipse(150, 246, 22, 9, 0, 0, Math.PI * 2); ctx.fill();
+
+        /* Subtle cheek flush (caught mid-shoot look) */
+        ctx.fillStyle = 'rgba(200,100,70,0.08)';
+        ctx.beginPath(); ctx.ellipse(120, 210, 16, 10, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(180, 210, 16, 10, 0, 0, Math.PI * 2); ctx.fill();
+
+        /* Copyright */
+        ctx.fillStyle = 'rgba(255,255,255,0.32)';
+        ctx.font = '8px Montserrat, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText('\u00A9 Peter Parker - Portrait', PW - 7, PH - 7);
+      }
+
+      /* Render all scenes */
+      const SCENES = [s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12];
+      function renderAll() {
+        SCENES.forEach(function(fn, i) {
+          const c = document.getElementById('sp-canvas-' + (i + 1));
+          if (!c) return;
+          try { fn(c.getContext('2d')); } catch(e) { console.warn('Scene', i+1, e); }
+        });
+        try { drawPortrait(); } catch(e) { console.warn('Portrait error:', e); }
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderAll);
+      else renderAll();
+
+    })(); /* end canvas engine */
+  </script>
+
+</body>
+</html>
